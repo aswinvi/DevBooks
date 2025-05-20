@@ -1,6 +1,12 @@
 package com.store.book.service.model;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import com.store.book.exception.SNNotFoundException;
 
 public enum Book {
 
@@ -44,4 +50,13 @@ public enum Book {
 		return price;
 	}
 
+	private static final Map<String, Book> bookMap = Collections
+			.unmodifiableMap(Stream.of(Book.values()).collect(Collectors.toMap(Book::getSerialNumber, book -> book)));
+
+	public static Book searchBySerialNo(String serialNumber) {
+		Book book = bookMap.get(serialNumber);
+		if (null == book)
+			throw new SNNotFoundException("There is no book present with Serial number: " + serialNumber);
+		return book;
+	}
 }
