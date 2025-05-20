@@ -8,6 +8,11 @@ import java.util.stream.Stream;
 
 import com.store.book.exception.SNNotFoundException;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum Book {
 
 	CLEAN_CODE("10001", "Clean Code", "Robert Martin", "2008", new BigDecimal("50")),
@@ -21,34 +26,6 @@ public enum Book {
 	final String authorName;
 	final String yearOfPublish;
 	final BigDecimal price;
-
-	Book(String serialNumber, String title, String authorName, String yearOfPublish, BigDecimal price) {
-		this.serialNumber = serialNumber;
-		this.title = title;
-		this.authorName = authorName;
-		this.yearOfPublish = yearOfPublish;
-		this.price = price;
-	}
-
-	public String getSerialNumber() {
-		return serialNumber;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getAuthorName() {
-		return authorName;
-	}
-
-	public String getYearOfPublish() {
-		return yearOfPublish;
-	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
 
 	private static final Map<String, Book> bookMap = Collections
 			.unmodifiableMap(Stream.of(Book.values()).collect(Collectors.toMap(Book::getSerialNumber, book -> book)));
